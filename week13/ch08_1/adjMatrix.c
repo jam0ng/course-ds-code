@@ -2,41 +2,41 @@
 #include <stdlib.h>
 #include "adjMatrix.h"
 
-// °ø¹é ±×·¡ÇÁ¸¦ »ı¼ºÇÏ´Â ¿¬»ê
+// ê³µë°± graphë¥¼ ìƒì„±í•˜ëŠ” ì—°ì‚°
 void createGraph(graphType* g) {
-	int i, j;
-	g->n = 0;								// Á¤Á¡ °³¼ö¸¦ 0À¸·Î ÃÊ±âÈ­
-	for (i = 0; i < MAX_VERTEX; i++) {
-		for (j = 0; j < MAX_VERTEX; j++)
-			g->adjMatrix[i][j] = 0;			// ±×·¡ÇÁ g¿¡ ´ëÇÑ 2Â÷¿ø ¹è¿­ÀÇ °ªÀ» 0À¸·Î ÃÊ±âÈ­
+	int i, j;								// í–‰ë ¬ì„ ìƒê°í•´ì„œ i í–‰(row)ì˜ ìˆ«ì, j ì—´(column)ì˜ ìˆ«ì
+	g->n = 0;								// ì •ì (Vertex) ê°œìˆ˜ë¥¼ 0ìœ¼ë¡œ ì´ˆê¸°í™”
+	for (i = 0; i < MAX_VERTEX; i++) {		// rowì„ ë°˜ë³µí•˜ëŠ” ë°˜ë³µë¬¸
+		for (j = 0; j < MAX_VERTEX; j++)	// columnì„ ë°˜ë³µí•˜ëŠ” ë°˜ë³µë¬¸
+			g->adjMatrix[i][j] = 0;			// graph gì— ëŒ€í•œ 2ì°¨ì› ë°°ì—´ì˜ ê°’ì„ 0ìœ¼ë¡œ ì´ˆê¸°í™”
 	}
 }
 
-// ±×·¡ÇÁ g¿¡ Á¤Á¡ v¸¦ »ğÀÔÇÏ´Â ¿¬»ê
-void insertVertex(graphType* g, int v) {
-	if (((g->n) + 1) > MAX_VERTEX) {
-		printf("\n ±×·¡ÇÁ Á¤Á¡ÀÇ °³¼ö¸¦ ÃÊ°úÇÏ¿´½À´Ï´Ù!");
+// graph gì— Vertex - vë¥¼ ì‚½ì…í•˜ëŠ” ì—°ì‚°
+void insertVertex(graphType* g, int v) {	
+	if (((g->n) + 1) > MAX_VERTEX) {		// Vertexì˜ ê°œìˆ˜ê°€ MAXë¥¼ ë„˜ì—ˆëŠ”ì§€ í™•ì¸
+		printf("\n ê·¸ë˜í”„ ì •ì ì˜ ê°œìˆ˜ë¥¼ ì´ˆê³¼í•˜ì˜€ìŠµë‹ˆë‹¤!");
 		return;
 	}
-	g->n++; // ±×·¡ÇÁ Á¤Á¡ÀÇ °³¼ö nÀ» ÇÏ³ª Áõ°¡
+	g->n++;									// graph Vertexì˜ ê°œìˆ˜ nì„ í•˜ë‚˜ ì¦ê°€
 }
 
-// ±×·¡ÇÁ g¿¡ °£¼± (u, v)¸¦ »ğÀÔÇÏ´Â ¿¬»ê
+// graph gì— edge (u, v)ë¥¼ ì‚½ì…í•˜ëŠ” ì—°ì‚°
 void insertEdge(graphType* g, int u, int v) {
-	// °£¼± (u, v)¸¦ »ğÀÔÇÏ±â À§ÇØ Á¤Á¡ u¿Í v°¡ ±×·¡ÇÁ¿¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+	// Edge (u, v)ë¥¼ ì‚½ì…í•˜ê¸° ìœ„í•´ ì •ì  uì™€ vê°€ graphì— ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
 	if (u >= g->n || v >= g->n) {
-		printf("\n ±×·¡ÇÁ¿¡ ¾ø´Â Á¤Á¡ÀÔ´Ï´Ù!");
+		printf("\n ê·¸ë˜í”„ì— ì—†ëŠ” ì •ì ì…ë‹ˆë‹¤!");
 		return;
 	}
-	g->adjMatrix[u][v] = 1;// »ğÀÔÇÑ °£¼±¿¡ ´ëÇÑ 2Â÷¿ø ¹è¿­ÀÇ ¿ø¼Ò °ªÀ» 1·Î ¼³Á¤
+	g->adjMatrix[u][v] = 1;					// ì‚½ì…í•œ edgeì— ëŒ€í•œ 2ì°¨ì› ë°°ì—´ì˜ ì›ì†Œ ê°’ì„ 1ë¡œ ì„¤ì •(simple graph)(directed graph)
 }
 
-// ±×·¡ÇÁ gÀÇ 2Â÷¿ø ¹è¿­ °ªÀ» ¼ø¼­´ë·Î Ãâ·ÂÇÏ´Â ¿¬»ê
+// graph gì˜ 2ì°¨ì› ë°°ì—´ ê°’ì„ ìˆœì„œëŒ€ë¡œ ì¶œë ¥í•˜ëŠ” ì—°ì‚°
 void print_adjMatrix(graphType* g) {
-	int i, j;
-	for (i = 0; i < (g->n); i++) {
+	int i, j;								// i(row), j(column)
+	for (i = 0; i < (g->n); i++) {			// row ë°˜ë³µë¬¸
 		printf("\n\t\t");
-		for (j = 0; j < (g->n); j++)
-			printf("%2d", g->adjMatrix[i][j]);
+		for (j = 0; j < (g->n); j++)		// column ë°˜ë³µë¬¸
+			printf("%2d", g->adjMatrix[i][j]);		// i,j ë²ˆì§¸ì˜ ë°ì´í„° ì¶œë ¥
 	}
 }
