@@ -1,10 +1,10 @@
 #pragma once
 #define MAX_VERTEX 30
 
-// ±×·¡ÇÁ¸¦ ÀÎÁ¢ Çà·Ä·Î Ç¥ÇöÇÏ±â À§ÇÑ ±¸Á¶Ã¼ Á¤ÀÇ
-typedef struct graphType {
-	int n;									                 // ±×·¡ÇÁÀÇ Á¤Á¡ °³¼ö
-	int adjMatrix[MAX_VERTEX][MAX_VERTEX];  // ±×·¡ÇÁ¿¡ ´ëÇÑ 30x30ÀÇ 2Â÷¿ø ¹è¿­
+// graphë¥¼ ì¸ì ‘ í–‰ë ¬ë¡œ í‘œí˜„í•˜ê¸° ìœ„í•œ êµ¬ì¡°ì²´ ì •ì˜
+typedef struct graphType {						
+	int n;									// graphì˜ ì •ì (Vertex) ê°œìˆ˜
+	int adjMatrix[MAX_VERTEX][MAX_VERTEX];  // garphì— ëŒ€í•œ 30x30ì˜ 2ì°¨ì› ë°°ì—´
 } graphType;
 
 void createGraph(graphType* g);
